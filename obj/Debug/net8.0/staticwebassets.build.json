@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "FVzt5GimYLhZsXekGNCcunUGiebgocIRAzS5RpmJ0Ew=",
+  "Source": "dotnet-webapi-erp",
+  "BasePath": "_content/dotnet-webapi-erp",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
