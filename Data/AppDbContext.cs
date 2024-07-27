@@ -1,12 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using dotnet_webapi_erp.App.Models.Concrete;
-using dotnet_webapi_erp.App.Models.Abstract;
+using dotnet_webapi_erp.App.Models.Concrete.Association;
+using dotnet_webapi_erp.App.Models.Concrete.Client;
+using dotnet_webapi_erp.App.Models.Concrete.Company;
+using dotnet_webapi_erp.App.Models.Concrete.Order;
+using dotnet_webapi_erp.App.Models.Concrete.Sale;
+using dotnet_webapi_erp.App.Models.Concrete.StockMovement;
+using dotnet_webapi_erp.App.Models.Concrete.StockProduct;
+using dotnet_webapi_erp.App.Models.Concrete.Suppliers;
+using dotnet_webapi_erp.App.Models.Concrete.User;
+using dotnet_webapi_erp.App.Models.Concrete.Token;
 
 namespace dotnet_webapi_erp.Data
 {
     public class AppDbContext : DbContext
     {
         public DbSet<User> User { get; set; }
+
+        public DbSet<Token> Token { get; set; }
         public DbSet<Company> Company { get; set; }
         public DbSet<Association> Association { get; set; }
         public DbSet<Client> Client { get; set; }

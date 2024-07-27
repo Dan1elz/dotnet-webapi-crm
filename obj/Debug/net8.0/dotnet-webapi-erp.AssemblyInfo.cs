@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("dotnet-webapi-erp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+726cdce09d5ae1f405c79bb858317064cf870e45")]
 [assembly: System.Reflection.AssemblyProductAttribute("dotnet-webapi-erp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("dotnet-webapi-erp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
