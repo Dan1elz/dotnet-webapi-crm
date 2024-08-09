@@ -17,7 +17,7 @@ namespace dotnet_webapi_erp.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0-preview.6.24327.4");
 
-            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.Association", b =>
+            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.Association.Association", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,7 +45,7 @@ namespace dotnet_webapi_erp.Data.Migrations
                     b.ToTable("Association");
                 });
 
-            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.Client", b =>
+            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.Client.Client", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -100,7 +100,7 @@ namespace dotnet_webapi_erp.Data.Migrations
                     b.ToTable("Client");
                 });
 
-            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.Company", b =>
+            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.Company.Company", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -141,7 +141,7 @@ namespace dotnet_webapi_erp.Data.Migrations
                     b.ToTable("Company");
                 });
 
-            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.Order", b =>
+            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.Order.Order", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -178,7 +178,7 @@ namespace dotnet_webapi_erp.Data.Migrations
                     b.ToTable("Order");
                 });
 
-            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.Sale", b =>
+            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.Sale.Sale", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -217,7 +217,7 @@ namespace dotnet_webapi_erp.Data.Migrations
                     b.ToTable("Sale");
                 });
 
-            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.StockMovement", b =>
+            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.StockMovement.StockMovement", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -245,7 +245,7 @@ namespace dotnet_webapi_erp.Data.Migrations
                     b.ToTable("StockMovement");
                 });
 
-            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.StockProduct", b =>
+            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.StockProduct.StockProduct", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -281,7 +281,7 @@ namespace dotnet_webapi_erp.Data.Migrations
                     b.ToTable("StockProduct");
                 });
 
-            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.Suppliers", b =>
+            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.Suppliers.Suppliers", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -328,7 +328,31 @@ namespace dotnet_webapi_erp.Data.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.User", b =>
+            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.Token.Token", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Token");
+                });
+
+            modelBuilder.Entity("dotnet_webapi_erp.App.Models.Concrete.User.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

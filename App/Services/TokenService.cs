@@ -4,6 +4,7 @@ using System.Text;
 using dotnet_webapi_erp;
 using System.IdentityModel.Tokens.Jwt;
 using dotnet_webapi_erp.App.Models.Concrete.Token;
+using dotnet_webapi_erp.App.Models.Concrete.User;
 
 namespace dotnet_webapi_erp.App.Services
 {

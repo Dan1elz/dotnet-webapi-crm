@@ -1,5 +1,10 @@
 using dotnet_webapi_erp;
+using dotnet_webapi_erp.App.Controllers;
+using dotnet_webapi_erp.App.Models.Concrete.Token;
+using dotnet_webapi_erp.App.Models.Concrete.User;
+using dotnet_webapi_erp.App.Services;
 using dotnet_webapi_erp.Data;
+using dotnet_webapi_erp.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -7,7 +12,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
@@ -48,7 +52,11 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
 builder.Services.AddScoped<AppDbContext>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<ITokenRepository, TokenRepository>();
+builder.Services.AddTransient<IUtilsService, UtilsService>();
 
 var key = Encoding.ASCII.GetBytes(Key.secret);
 
@@ -68,8 +76,10 @@ builder.Services.AddAuthentication(x =>
         ValidateAudience = false
     };
 });
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -77,9 +87,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors();
-app.UseHttpsRedirection();
 
+app.UseHttpsRedirection();
+app.UseCors();
+
+// **Ordem correta dos middlewares**
+app.UseRouting();  // Certifique-se de que está antes de app.UseAuthentication()
+
+app.UseAuthentication();  // Certifique-se de que está antes de app.UseAuthorization()
 app.UseAuthorization();
 
 app.MapControllers();

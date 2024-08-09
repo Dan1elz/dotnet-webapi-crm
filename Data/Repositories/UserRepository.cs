@@ -11,13 +11,13 @@ namespace dotnet_webapi_erp.Data.Repositories
     {
         private readonly AppDbContext _context = context;
 
-        public async void Create(User user, CancellationToken ct)
+        public async Task Create(User user, CancellationToken ct)
         {
             await _context.User.AddAsync(user, ct);
             await _context.SaveChangesAsync(ct);
         }
 
-        public async void Delete(Token token, CancellationToken ct)
+        public async Task Delete(Token token, CancellationToken ct)
         {
             var user = await _context.User.FindAsync(new object?[] { token.UserId, ct }, cancellationToken: ct);
             if (user != null)
@@ -35,43 +35,33 @@ namespace dotnet_webapi_erp.Data.Repositories
                 .Select(u => new UserDTO(u.Id, u.Name, u.Lastname, u.Email, u.CPF, u.PhoneNumber, u.Created, u.Updated))
                 .SingleOrDefaultAsync(ct);
 
-                return user;
+                return user ?? null;
         }
 
-        public async Task<object?> Login(string email, string password, CancellationToken ct)
+        public async Task<User?> Login(string email, string password, CancellationToken ct)
         {
-
-            var login = await _context.User
+            return await _context.User
                 .SingleOrDefaultAsync(u => u.Email == email && u.Password == password, ct);
-
-            if (login == null)
-                return "Falha ao autentificar. Verifique os dados enviados";
-
-            return {login.Id ?: false};
-
-            var tokenVerify = await _context.Token
-                .Where(u => u.UserId == login.Id)
-                .FirstOrDefaultAsync(ct);
-            return tokenVerify?.Value ?? "Token não encontrado";
         }
 
-        public async Task<string?> Update(Token token, User user, CancellationToken ct)
+        public async Task<bool> Update(Token token, User user, CancellationToken ct)
         {
             var verifyUser = await _context.User
                 .SingleOrDefaultAsync(u => u.Id == token.UserId && u.Email == user.Email && u.Password == user.Password, ct);
-            if (verifyUser == null) return "Os dados não são condizentes.";
+            if (verifyUser == null) return false;
 
             verifyUser.Update(user);
             _context.Token.Remove(token);
             await _context.SaveChangesAsync(ct);
 
-            var createToken = TokenService.GenerateToken(user.Id);
+            return true;
+        }
 
-            var newToken = new Token(verifyUser.Id, createToken.Value);
-            await _context.Token.AddAsync(newToken, ct);
-            await _context.SaveChangesAsync(ct);
-
-            return "Usuário atualizado com sucesso."; ;
+        public async Task<bool> VerifyUser(User user, CancellationToken ct)
+        {
+            var verifyUser = await _context.User
+               .SingleOrDefaultAsync(u => u.Email == user.Email, ct);
+            return verifyUser == null ? false : true;
         }
     }
 }
