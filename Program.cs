@@ -1,5 +1,6 @@
 using dotnet_webapi_erp;
 using dotnet_webapi_erp.App.Controllers;
+using dotnet_webapi_erp.App.Models.Concrete.Company;
 using dotnet_webapi_erp.App.Models.Concrete.Token;
 using dotnet_webapi_erp.App.Models.Concrete.User;
 using dotnet_webapi_erp.App.Services;
@@ -57,6 +58,7 @@ builder.Services.AddScoped<AppDbContext>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<ITokenRepository, TokenRepository>();
 builder.Services.AddTransient<IUtilsService, UtilsService>();
+builder.Services.AddTransient<ICompanyRepository, CompanyRepository>();
 
 var key = Encoding.ASCII.GetBytes(Key.secret);
 

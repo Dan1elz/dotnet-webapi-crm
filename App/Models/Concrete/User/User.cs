@@ -1,4 +1,5 @@
 ﻿using dotnet_webapi_erp.App.Models.Abstract;
+using dotnet_webapi_erp.Data.DTOs;
 using System.ComponentModel.DataAnnotations;
 
 namespace dotnet_webapi_erp.App.Models.Concrete.User
@@ -17,7 +18,7 @@ namespace dotnet_webapi_erp.App.Models.Concrete.User
             Password = password;
             DataNascimento = dataNascimento;
         }
-        public void Update(User user)
+        public void Update(UpdateUserDTO user)
         {
             this.Name = user.Name;
             this.Lastname = user.Lastname;

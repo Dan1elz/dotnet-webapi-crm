@@ -9,6 +9,7 @@ using dotnet_webapi_erp.App.Models.Concrete.StockProduct;
 using dotnet_webapi_erp.App.Models.Concrete.Suppliers;
 using dotnet_webapi_erp.App.Models.Concrete.User;
 using dotnet_webapi_erp.App.Models.Concrete.Token;
+using dotnet_webapi_erp.App.Models.Concrete.Invite;
 
 namespace dotnet_webapi_erp.Data
 {
@@ -25,6 +26,7 @@ namespace dotnet_webapi_erp.Data
         public DbSet<Sale> Sale { get; set; }
         public DbSet<Association> Association { get; set; }
 
+        public DbSet<Invite> Invites { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string dbPath = Path.Combine(Directory.GetCurrentDirectory(), "Data/Database", "api-erp.db");

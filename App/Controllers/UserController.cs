@@ -76,14 +76,50 @@ namespace dotnet_webapi_erp.App.Controllers
         {
             var token = await _utilsService.GetToken(HttpContext.Request.Headers["Authorization"].ToString(), ct);
 
-            if (token == null)
-                return Unauthorized(new { message = "Token inválido ou não encontrado." });
+            if (token == null) return Unauthorized(new { message = "Token inválido ou não encontrado." });
 
             var user = await _userRepository.GetUser(token, ct);
             if (user == null)
                 return Conflict(error: "Usuario não encontrado.");
 
             return Ok(new { data = user, message = "Usuario logado com sucesso!" });
+        }
+
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> Update(UpdateUserDTO request, CancellationToken ct) 
+        {
+            
+            var token = await _utilsService.GetToken(HttpContext.Request.Headers["Authorization"].ToString(), ct);
+
+            if (token == null) return Unauthorized(new { message = "Token inválido ou não encontrado." });
+
+            if (request == null)
+                return BadRequest(new { message = "Requisição inválida." });
+
+            var update = await _userRepository.Update(token, request, ct);
+
+            if (!update)
+                return BadRequest(new { message = "Erro ao atualizar usuario, verifique os dados de entrada." });
+
+            token = await _tokenRepository.Create(token.UserId, ct);
+
+            return Ok(new { data = token!.Value, message = "Usuario atualizado com sucesso!" });
+        }
+
+        [HttpDelete]
+        [Authorize]
+        public async Task<IActionResult> Delete(CancellationToken ct)
+        {
+            var token = await _utilsService.GetToken(HttpContext.Request.Headers["Authorization"].ToString(), ct);
+
+            if (token == null) return Unauthorized(new { message = "Token inválido ou não encontrado." });
+
+            var delete = await _userRepository.Delete(token, ct);
+
+            if (!delete) return BadRequest(new { message = "Erro ao deletar usuario!" });
+
+            return Ok(new { message = "Usuario deletado com sucesso!" });
         }
     }
 }

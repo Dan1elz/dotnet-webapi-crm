@@ -10,8 +10,8 @@ namespace dotnet_webapi_erp.App.Models.Concrete.User
         Task Create(User user, CancellationToken ct);
         Task<UserDTO?> GetUser(TokenNamespace.Token token, CancellationToken ct);
         Task<User?> Login(string email, string password, CancellationToken ct);
-        Task<bool> Update(TokenNamespace.Token token, User user, CancellationToken ct);
-        Task Delete(TokenNamespace.Token token, CancellationToken ct);
+        Task<bool> Update(TokenNamespace.Token token, UpdateUserDTO user, CancellationToken ct);
+        Task<bool> Delete(TokenNamespace.Token token, CancellationToken ct);
         Task<bool> VerifyUser(User user, CancellationToken ct);
     }
 }
